@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/Pages/Blog.css" asp-append-version="true" />
 }
 
+<!-- Blog post view - Exercise 1 -->
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -31,7 +32,7 @@
 
             <hr />
 
-            <!-- Comment form - Exercise 2 & 3-->
+            <!-- Comment form - Exercise 3-->
             <div class="card my-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
@@ -67,7 +68,7 @@
                 </div>
             </div>
 
-            <!-- Comments -->
+            <!-- Comments - Exercise 2 -->
             @if (Model.Post.Comments?.Any() == true)
             {
                 foreach (var c in Model.Post.Comments.OrderByDescending(x => x.Date))
