@@ -7,4 +7,9 @@
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.22" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,29 @@
+﻿
+h1 {
+    display: block;
+    text-align: center;
+}
+
+.blog-content p {
+    margin-bottom: 1rem;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+}
+
+button {
+    margin: 5px;
+}
+
+.form-group {
+    margin: 5px;
+}
+
+@media (max-width: 576px) {
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+    }
+}

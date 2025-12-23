@@ -1,0 +1,26 @@
+﻿@model IReadOnlyList<DeveloperAssessment.Common.Models.Blog.BlogPostItem>
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/BlogIndex.css" asp-append-version="true" />
+}
+
+<h1>Blog</h1>
+
+<div class="list-group">
+    @foreach (var post in Model)
+    {
+        <a class="list-group-item list-group-item-action"
+           asp-controller="Blog"
+           asp-action="Post"
+           asp-route-id="@post.Id">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@post.Title</h5>
+                <small>@post.Date.ToString("MMM dd, yyyy")</small>
+            </div>
+        </a>
+    }
+</div>

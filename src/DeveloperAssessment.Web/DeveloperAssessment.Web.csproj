@@ -3,4 +3,16 @@
   <PropertyGroup>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\Components\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DeveloperAssessment.Services\DeveloperAssessment.Services.csproj" />
+  </ItemGroup>
+
 </Project>

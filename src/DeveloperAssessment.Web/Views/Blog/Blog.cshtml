@@ -1,0 +1,100 @@
+﻿@model DeveloperAssessment.Common.ViewModels.BlogPostPageViewModel
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/Blog.css" asp-append-version="true" />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="mt-4">@Model.Post.Title</h1>
+
+            <hr />
+
+            <p>Posted on @Model.Post.Date.ToString("MMMM dd, yyyy")</p>
+
+            <hr />
+
+            @if (!string.IsNullOrWhiteSpace(Model.Post.Image))
+            {
+                <img class="img-fluid rounded mx-auto d-block" src="@Model.Post.Image" alt="@Model.Post.Title" />
+                <hr />
+            }
+
+            <div class="blog-content">
+                @Html.Raw(Model.Post.HtmlContent)
+            </div>
+
+            <hr />
+
+            <!-- Comment form -->
+            <div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body">
+
+                    <form asp-action="Post" asp-route-id="@Model.Post.Id" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label asp-for="NewComment.Name"></label>
+                                <input asp-for="NewComment.Name" class="form-control" />
+                                <span asp-validation-for="NewComment.Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label asp-for="NewComment.EmailAddress">Email Address</label>
+                                <input asp-for="NewComment.EmailAddress" class="form-control" />
+                                <span asp-validation-for="NewComment.EmailAddress" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NewComment.Message"></label>
+                            <textarea asp-for="NewComment.Message" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="NewComment.Message" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Comments -->
+            @if (Model.Post.Comments?.Any() == true)
+            {
+                foreach (var c in Model.Post.Comments.OrderByDescending(x => x.Date))
+                {
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle user-avatar"
+                             src="https://eu.ui-avatars.com/api/?name=@Uri.EscapeDataString(c.Name)"
+                             alt="@c.Name" />
+
+                        <div class="media-body">
+                            <h5 class="mt-0">
+                                @c.Name
+                                <small><em>(@c.Date.ToLocalTime().ToString("MMMM dd, yyyy - HH:mm"))</em></small>
+                            </h5>
+                            @c.Message
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No comments yet.</p>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
