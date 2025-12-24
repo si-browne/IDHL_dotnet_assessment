@@ -8,6 +8,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DeveloperAssessment.Services.Tests\DeveloperAssessment.Services.Tests.csproj" />
     <ProjectReference Include="..\..\DeveloperAssessment.Services\DeveloperAssessment.Services.csproj" />
   </ItemGroup>
 

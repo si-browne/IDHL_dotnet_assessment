@@ -156,6 +156,38 @@
         }
       ],
       "id": 3
+    },
+    {
+      "date": "2019-10-10T09:15:00.000Z",
+      "title": "Design Systems: The Practical Starter Guide",
+      "image": "https://placehold.co/600x400",
+      "htmlContent": "\u003Cp\u003EBuilding a design system doesn\u2019t need to start with a huge rollout. The most successful ones begin small: a handful of components, agreed spacing rules, and a shared vocabulary.\u003C/p\u003E\r\n\u003Cp\u003EIn this post we cover a practical approach: audit what you already have, define tokens (colour, spacing, typography), create a minimal component library, and document usage with examples.\u003C/p\u003E\r\n\u003Ch3\u003EStart with principles\u003C/h3\u003E\r\n\u003Cp\u003EDefine what \u2018good\u2019 looks like for your product: accessibility, clarity, consistency, and performance. Principles become the decision-making guide when there\u2019s disagreement.\u003C/p\u003E\r\n\u003Ch3\u003EMeasure adoption\u003C/h3\u003E\r\n\u003Cp\u003ETrack usage over time. A design system only works if teams actually use it. Keep feedback loops short and iterate frequently.\u003C/p\u003E",
+      "comments": [],
+      "id": 4
+    },
+    {
+      "date": "2019-09-22T13:40:00.000Z",
+      "title": "Caching in .NET: When, Where, and Why",
+      "image": "https://placehold.co/600x400",
+      "htmlContent": "\u003Cp\u003ECaching is one of the easiest ways to improve performance, but it\u2019s also a common source of subtle bugs. The key is choosing the right scope: in-memory for single-instance apps, distributed caches when you scale out.\u003C/p\u003E\r\n\u003Ch3\u003EPick the right cache key\u003C/h3\u003E\r\n\u003Cp\u003EA good key is stable and unique. Prefer namespaced keys like \u003Ccode\u003Eblogposts:document\u003C/code\u003E so collisions are unlikely.\u003C/p\u003E\r\n\u003Ch3\u003EInvalidate intentionally\u003C/h3\u003E\r\n\u003Cp\u003EWhenever you write, decide how reads should behave: remove the key, update the cache entry, or rely on expiry. For file-backed JSON persistence, removing on write keeps the logic simple and correct.\u003C/p\u003E",
+      "comments": [],
+      "id": 5
+    },
+    {
+      "date": "2019-09-05T08:05:00.000Z",
+      "title": "Building Forms That Users Don\u2019t Hate",
+      "image": "https://placehold.co/600x400",
+      "htmlContent": "\u003Cp\u003EForms are where users either succeed quickly or abandon your product. The best forms are short, forgiving, and clear about what\u2019s required.\u003C/p\u003E\r\n\u003Ch3\u003EMake validation friendly\u003C/h3\u003E\r\n\u003Cp\u003EShow errors inline, avoid jargon, and don\u2019t clear the form after a validation failure. Client-side validation improves UX, but server-side validation is the source of truth.\u003C/p\u003E\r\n\u003Ch3\u003EDesign for mobile first\u003C/h3\u003E\r\n\u003Cp\u003EStack fields vertically on small screens, keep buttons full-width where it helps, and use the correct input types (email, tel) to bring up the right keyboards.\u003C/p\u003E",
+      "comments": [],
+      "id": 6
+    },
+    {
+      "date": "2019-08-18T16:30:00.000Z",
+      "title": "Pragmatic SOLID: Making It Real in Small Projects",
+      "image": "https://placehold.co/600x400",
+      "htmlContent": "\u003Cp\u003ESOLID can sound abstract until you apply it to everyday structure. In small MVC projects, the biggest wins usually come from SRP and DIP: keep controllers thin, move logic into services, and depend on abstractions.\u003C/p\u003E\r\n\u003Ch3\u003ESRP in practice\u003C/h3\u003E\r\n\u003Cp\u003EIf a class both retrieves data and decides how it\u2019s rendered, it\u2019s doing too much. Split responsibilities so changes are isolated.\u003C/p\u003E\r\n\u003Ch3\u003EDIP without ceremony\u003C/h3\u003E\r\n\u003Cp\u003EUse interfaces at the boundaries (repositories, file stores). That makes swapping implementations straightforward and keeps your code testable.\u003C/p\u003E",
+      "comments": [],
+      "id": 7
     }
   ]
 }

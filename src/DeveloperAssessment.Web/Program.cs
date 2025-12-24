@@ -56,4 +56,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+// simulation of unit tests, see XML comment
+if (app.Environment.IsDevelopment())
+{
+    await DeveloperAssessment.Services.Tests.BlogServiceTests.RunAll();
+}
+
 app.Run();

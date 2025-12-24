@@ -19,19 +19,46 @@ namespace DeveloperAssessment.Web.Controllers
             _fileStore = fileStore;
         }
 
-        // GET /blog
-        public async Task<IActionResult> Index()
+        // GET /blog?page=1
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var posts = await _blogService.GetPostsAsync();
-            return View(posts);
+            const int pageSize = 6;
+
+            _logger.LogInformation("Loading blog index page {Page}", page);
+
+            var allPosts = await _blogService.GetPostsAsync();
+            var totalCount = allPosts.Count;
+
+            page = Math.Max(page, 1);
+
+            var posts = allPosts.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            _logger.LogInformation("Returning {PostCount} posts for page {Page} (Total posts: {TotalCount})", posts.Count, page, totalCount);
+
+            var vm = new BlogIndexViewModel
+            {
+                Posts = posts,
+                Page = page,
+                PageSize = pageSize,
+                TotalCount = totalCount
+            };
+
+            return View(vm);
         }
 
         // GET /blog/{id}
+        [HttpGet]
         public async Task<IActionResult> Post(int id)
         {
-            var post = await _blogService.GetPostByIdAsync(id);
-            if (post is null) return NotFound();
+            _logger.LogInformation("Loading blog post {PostId}", id);
 
+            var post = await _blogService.GetPostByIdAsync(id);
+            if (post is null) 
+            {
+                _logger.LogWarning("Blog post {PostId} not found", id);
+                return NotFound();
+            }
+            
             return View("Blog", new BlogPostPageViewModel
             {
                 Post = post,
@@ -44,12 +71,17 @@ namespace DeveloperAssessment.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(int id, [Bind(Prefix = "NewComment")] AddCommentRequest input)
         {
+            _logger.LogInformation("Attempting to add comment to post {PostId}", id);
+
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid comment model for post {PostId}. Errors: {ErrorCount}", id, ModelState.ErrorCount);
+
                 var post = await _blogService.GetPostByIdAsync(id);
 
                 if (post is null) 
                 {
+                    _logger.LogWarning("Blog post {PostId} not found during comment validation", id);
                     return NotFound();
                 }
 
@@ -74,16 +106,19 @@ namespace DeveloperAssessment.Web.Controllers
 
                 try
                 {
+                    _logger.LogInformation("Saving attachment {FileName} for post {PostId}", file.FileName, id);
                     attachments.Add(await _fileStore.SaveAsync(file));
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex, "Failed to save attachment {FileName} for post {PostId}", file.FileName, id);
                     // here, iff an upload fails, show a friendly error and re-render
                     ModelState.AddModelError(string.Empty, $"Attachment '{file.FileName}' failed: {ex.Message}");
 
                     var post = await _blogService.GetPostByIdAsync(id);
                     if (post is null) 
                     {
+                        _logger.LogWarning("Blog post {PostId} not found after attachment failure", id);
                         return NotFound();
                     }
 
@@ -110,6 +145,8 @@ namespace DeveloperAssessment.Web.Controllers
                 Attachments = attachments
             });
 
+            _logger.LogInformation("Successfully added comment to post {PostId} with {AttachmentCount} attachments", id, attachments.Count);
+
             return RedirectToAction(nameof(Post), new { id });
         }
 
@@ -117,11 +154,17 @@ namespace DeveloperAssessment.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Reply(int id, int commentId, [Bind(Prefix = "NewReply")] AddReplyRequest input)
         {
+            _logger.LogInformation("Attempting to add reply to comment {CommentId} on post {PostId}", commentId, id);
             if (!ModelState.IsValid)
             {
+                _logger.LogWarning("Invalid reply model for post {PostId}, comment {CommentId}", id, commentId);
                 var post = await _blogService.GetPostByIdAsync(id);
 
-                if (post is null) return NotFound();
+                if (post is null)
+                {
+                    _logger.LogWarning("Blog post {PostId} not found during reply validation", id);
+                    return NotFound();
+                }
 
                 return View("Blog", new BlogPostPageViewModel
                 {
@@ -143,6 +186,8 @@ namespace DeveloperAssessment.Web.Controllers
                 Message = input.Message,
                 Date = DateTime.UtcNow
             });
+
+            _logger.LogInformation("Successfully added reply to comment {CommentId} on post {PostId}", commentId, id);
 
             return RedirectToAction(nameof(Post), new { id });
         }
