@@ -19,6 +19,8 @@ builder.Services.AddScoped<IRepository<BlogPostDocument>>(sp =>
 // the service layer
 builder.Services.AddScoped<IBlogService, BlogService>();
 
+builder.Services.AddScoped<ICommentFileService, CommentFileService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -32,7 +34,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-// the blog routes (exercise 1,2 and 3)
+// the blog routes (exercise 1,2,3 and 5)
 app.MapControllerRoute(
     name: "blog-post",
     pattern: "blog/{id:int}",

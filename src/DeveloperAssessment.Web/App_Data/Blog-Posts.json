@@ -20,6 +20,7 @@
               "id": 1
             }
           ],
+          "attachments": [],
           "id": 1
         },
         {
@@ -28,6 +29,7 @@
           "emailAddress": "chetanmistry@mailinator.co.uk",
           "message": "Nam vel aliquet nulla, ac tempor ex. Suspendisse sit amet sollicitudin ex, vel placerat ipsum. Duis vitae fermentum eros. In maximus maximus purus, et volutpat eros rutrum et. Nulla fringilla at massa vel varius. In tristique egestas nisl, vitae elementum orci fringilla quis. Ut rutrum mauris erat, a rhoncus orci posuere non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
           "replies": [],
+          "attachments": [],
           "id": 2
         },
         {
@@ -36,6 +38,7 @@
           "emailAddress": "chrisgrey@mailinator.co.uk",
           "message": "Integer volutpat, sapien eu dapibus sodales, ipsum arcu dapibus elit, ac faucibus mi ligula suscipit mauris.",
           "replies": [],
+          "attachments": [],
           "id": 3
         },
         {
@@ -59,6 +62,7 @@
               "id": 2
             }
           ],
+          "attachments": [],
           "id": 4
         },
         {
@@ -75,7 +79,26 @@
               "id": 1
             }
           ],
+          "attachments": [],
           "id": 5
+        },
+        {
+          "name": "Simon Browne 3",
+          "date": "2025-12-24T04:39:48.6806979Z",
+          "emailAddress": "simon.browne0121@hotmail.com",
+          "message": "asdasd",
+          "replies": [],
+          "attachments": [
+            {
+              "id": 0,
+              "originalFileName": "test1.jpg",
+              "storedFileName": "9747fd171ccf4d00acfda3d9751259a8.jpg",
+              "relativeUrl": "/uploads/comments/9747fd171ccf4d00acfda3d9751259a8.jpg",
+              "contentType": "image/jpeg",
+              "sizeBytes": 1424
+            }
+          ],
+          "id": 6
         }
       ],
       "id": 1
@@ -92,6 +115,7 @@
           "emailAddress": "simon.browne0121@hotmail.com",
           "message": "This is a test 2",
           "replies": [],
+          "attachments": [],
           "id": 1
         }
       ],
@@ -109,6 +133,7 @@
           "emailAddress": "simon.browne0121@hotmail.com",
           "message": "This is a test 3",
           "replies": [],
+          "attachments": [],
           "id": 1
         }
       ],

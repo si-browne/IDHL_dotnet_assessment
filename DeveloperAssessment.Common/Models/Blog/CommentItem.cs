@@ -18,7 +18,12 @@ namespace DeveloperAssessment.Common.Models.Blog
         [JsonPropertyName("message")]
         public string Message { get; set; } = "";
 
+        // Exercise 4
         [JsonPropertyName("replies")]
         public List<CommentReplyItem> Replies { get; set; } = new();
+
+        // Exercise 5
+        [JsonPropertyName("attachments")]
+        public List<CommentAttachmentItem> Attachments { get; set; } = new();
     }
 }

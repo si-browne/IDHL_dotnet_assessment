@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace DeveloperAssessment.Common.Requests.Blog
 {
@@ -12,5 +13,8 @@ namespace DeveloperAssessment.Common.Requests.Blog
 
         [Required, StringLength(2000)]
         public string Message { get; set; } = "";
+
+        // Exercise 5
+        public List<IFormFile> Files { get; set; } = new();
     }
 }

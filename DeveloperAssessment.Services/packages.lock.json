@@ -70,14 +70,32 @@
         "resolved": "10.0.1",
         "contentHash": "wVYO4/71Pk177uQ3TG8ZQFS3Pnmr98cF9pYxnpuIb/bMnbEWsdZZoLU/euv29mfSi2/Iuypj0TRUchPk7aqBGg=="
       },
+      "System.IO.Pipelines": {
+        "type": "Transitive",
+        "resolved": "5.0.2",
+        "contentHash": "Iew+dfa6FFiyvWBdRmXApixRY1db+beyutpIck4SOSe0NLM8FD/7AD54MscqVLhvfSMLHO7KadjTRT7fqxOGTA=="
+      },
       "developerassessment.common": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "[5.0.17, )"
+        }
       },
       "developerassessment.dal": {
         "type": "Project",
         "dependencies": {
           "DeveloperAssessment.Common": "[1.0.0, )",
           "Microsoft.Extensions.Hosting.Abstractions": "[10.0.1, )"
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features": {
+        "type": "CentralTransitive",
+        "requested": "[5.0.17, )",
+        "resolved": "5.0.17",
+        "contentHash": "3jG2xS+dx8DDCGV/F+STdPTg89lX3ao3dF/VEPvJaz3wzBIjuadipTtYNEXDIVuOPZwb6jdmhrX9jkzOIBm5cw==",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "5.0.1",
+          "System.IO.Pipelines": "5.0.2"
         }
       },
       "Microsoft.Extensions.Hosting.Abstractions": {

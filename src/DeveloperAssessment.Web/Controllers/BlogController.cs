@@ -10,11 +10,13 @@ namespace DeveloperAssessment.Web.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ILogger<BlogController> _logger;
+        private readonly ICommentFileService _fileStore;
 
-        public BlogController(IBlogService blogService, ILogger<BlogController> logger)
+        public BlogController(IBlogService blogService, ILogger<BlogController> logger, ICommentFileService fileStore)
         {
             _blogService = blogService;
             _logger = logger;
+            _fileStore = fileStore;
         }
 
         // GET /blog
@@ -46,7 +48,10 @@ namespace DeveloperAssessment.Web.Controllers
             {
                 var post = await _blogService.GetPostByIdAsync(id);
 
-                if (post is null) return NotFound();
+                if (post is null) 
+                {
+                    return NotFound();
+                }
 
                 return View("Blog", new BlogPostPageViewModel
                 {
@@ -61,12 +66,48 @@ namespace DeveloperAssessment.Web.Controllers
                 });
             }
 
+            var attachments = new List<CommentAttachmentItem>();
+
+            foreach (var file in input.Files ?? new List<IFormFile>())
+            {
+                if (file is null || file.Length == 0) continue;
+
+                try
+                {
+                    attachments.Add(await _fileStore.SaveAsync(file));
+                }
+                catch (Exception ex)
+                {
+                    // here, iff an upload fails, show a friendly error and re-render
+                    ModelState.AddModelError(string.Empty, $"Attachment '{file.FileName}' failed: {ex.Message}");
+
+                    var post = await _blogService.GetPostByIdAsync(id);
+                    if (post is null) 
+                    {
+                        return NotFound();
+                    }
+
+                    return View("Blog", new BlogPostPageViewModel
+                    {
+                        Post = post,
+                        NewComment = new CommentInputModel
+                        {
+                            Name = input.Name,
+                            EmailAddress = input.EmailAddress,
+                            Message = input.Message
+                        },
+                        NewReply = new ReplyInputModel()
+                    });
+                }
+            }
+
             await _blogService.AddCommentAsync(id, new CommentItem
             {
                 Name = input.Name,
                 EmailAddress = input.EmailAddress,
                 Message = input.Message,
-                Date = DateTime.UtcNow
+                Date = DateTime.UtcNow,
+                Attachments = attachments
             });
 
             return RedirectToAction(nameof(Post), new { id });
