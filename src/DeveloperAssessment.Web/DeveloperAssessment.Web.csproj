@@ -8,10 +8,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\DeveloperAssessment.Services\DeveloperAssessment.Services.csproj" />
   </ItemGroup>
 

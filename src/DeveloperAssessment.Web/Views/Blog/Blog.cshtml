@@ -6,6 +6,7 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Pages/Blog.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Components/Blog/Comments.css" asp-append-version="true" />
 }
 
 <!-- Blog post view - Exercise 1 -->
@@ -101,7 +102,7 @@
                         }
 
                         @* Reply form *@
-                        <div class="mt-3">
+                        <div class="mt-3 commment-main">
                             <form asp-action="Reply" asp-route-id="@Model.Post.Id" asp-route-commentId="@c.Id" method="post" class="reply-form mt-2">
                                 @Html.AntiForgeryToken()
 
@@ -125,7 +126,7 @@
                                     </div>
 
                                     <div class="col-12 col-lg-2 d-grid">
-                                        <button class="btn btn-outline-primary btn-sm" type="submit">Reply</button>
+                                        <button class="btn btn-primary btn-sm" type="submit">Reply</button>
                                     </div>
                                 </div>
                             </form>
