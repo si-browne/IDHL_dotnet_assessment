@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - IDHL</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/DeveloperAssessment.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Global/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -14,14 +14,6 @@
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" aria-label="IDHL">
                     <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="90">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #404b77;
-                                    stroke-width: 0px;
-                                }
-                            </style>
-                        </defs>
                         <path class="cls-1" d="M379.98,105h218.83c145,0,216.19,80.41,216.19,228.05v413.9c0,147.64-71.19,228.05-216.19,228.05h-218.83V105ZM524.99,250v579.99h71.18c46.14,0,73.82-23.73,73.82-89.64v-400.72c0-65.91-27.68-89.64-73.82-89.64h-71.18Z"></path>
                         <path class="cls-1" d="M89.98,394.83h145v580.17H89.98V394.83Z"></path>
                         <path class="cls-1" d="M89.98,105h145v145H89.98V105Z"></path>
@@ -40,6 +32,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Blog" asp-action="Index">Blog</a>
                         </li>
                     </ul>
                 </div>

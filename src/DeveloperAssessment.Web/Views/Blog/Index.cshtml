@@ -1,0 +1,53 @@
+﻿@model DeveloperAssessment.Web.Models.Blog.BlogIndexViewModel
+
+@{
+    ViewData["Title"] = "Blog";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Pages/BlogIndex.css" asp-append-version="true" />
+}
+
+<!-- Blog post view - Exercise 1 & 6 -->
+
+<h1 class="mb-4">Blog</h1>
+
+<div class="row">
+@foreach (var post in Model.Posts)
+{
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+
+            @if (!string.IsNullOrWhiteSpace(post.Image))
+            {
+                <img class="card-img-top" src="@post.Image" alt="@post.Title" />
+            }
+
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">@post.Title</h5>
+                <p class="text-muted mb-3">@post.Date.ToString("MMM dd, yyyy")</p>
+                <a class="btn btn-primary mt-auto" asp-controller="Blog" asp-action="Post" asp-route-id="@post.Id">Read more</a>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+@if (Model.TotalPages > 1)
+{
+    <nav aria-label="Blog pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.HasPrev ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page - 1)">Previous</a>
+            </li>
+
+            <li class="page-item disabled">
+                <span class="page-link">Page @Model.Page of @Model.TotalPages</span>
+            </li>
+
+            <li class="page-item @(Model.HasNext ? "" : "disabled")">
+                <a class="page-link" asp-action="Index" asp-route-page="@(Model.Page + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+}
