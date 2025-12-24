@@ -1,4 +1,4 @@
-﻿@model DeveloperAssessment.Common.ViewModels.BlogPostPageViewModel
+﻿@model DeveloperAssessment.Web.Models.Blog.BlogPostPageViewModel
 
 @{
     ViewData["Title"] = "Blog";
@@ -16,7 +16,7 @@
 
             <hr />
 
-            <p>Posted on @Model.Post.Date.ToString("MMMM dd, yyyy")</p>
+            <p>Posted on @Model.Post.Date.ToString()</p>
 
             <hr />
 
@@ -68,29 +68,70 @@
                 </div>
             </div>
 
-            <!-- Comments - Exercise 2 -->
-            @if (Model.Post.Comments?.Any() == true)
+            <!-- Comments - Exercise 2 & 4 -->
+            @foreach (var c in Model.Post.Comments.OrderByDescending(x => x.Date))
             {
-                foreach (var c in Model.Post.Comments.OrderByDescending(x => x.Date))
-                {
-                    <div class="media mb-4">
-                        <img class="d-flex mr-3 rounded-circle user-avatar"
-                             src="https://eu.ui-avatars.com/api/?name=@Uri.EscapeDataString(c.Name)"
-                             alt="@c.Name" />
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle user-avatar"
+                         src="https://eu.ui-avatars.com/api/?name=@Uri.EscapeDataString(c.Name)"
+                         alt="@c.Name" />
 
-                        <div class="media-body">
-                            <h5 class="mt-0">
-                                @c.Name
-                                <small><em>(@c.Date.ToLocalTime().ToString("MMMM dd, yyyy - HH:mm"))</em></small>
-                            </h5>
-                            @c.Message
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            @c.Name <small><em>(@c.Date.ToLocalTime())</em></small>
+                        </h5>
+
+                        <p>@c.Message</p>
+
+                        @* Replies *@
+                        @if (c.Replies?.Any() == true)
+                        {
+                            <div class="mt-3 pl-3 border-left">
+                                @foreach (var r in c.Replies.OrderBy(x => x.Date))
+                                {
+                                    <div class="mb-2">
+                                        <strong>@r.Name</strong>
+                                        <small class="text-muted">
+                                            (@r.Date.ToLocalTime())
+                                        </small>
+                                        <div>@r.Message</div>
+                                    </div>
+                                }
+                            </div>
+                        }
+
+                        @* Reply form *@
+                        <div class="mt-3">
+                            <form asp-action="Reply" asp-route-id="@Model.Post.Id" asp-route-commentId="@c.Id" method="post" class="reply-form mt-2">
+                                @Html.AntiForgeryToken()
+
+                                <div class="row g-2 align-items-start">
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for="NewReply.Name"></label>
+                                        <input asp-for="NewReply.Name" class="form-control form-control-sm" />
+                                        <span asp-validation-for="NewReply.Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 col-lg-6">
+                                        <label asp-for="NewReply.EmailAddress">Email</label>
+                                        <input asp-for="NewReply.EmailAddress" class="form-control form-control-sm" />
+                                        <span asp-validation-for="NewReply.EmailAddress" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 col-lg-12">
+                                        <label asp-for="NewReply.Message"></label>
+                                        <input asp-for="NewReply.Message" class="form-control form-control-sm" />
+                                        <span asp-validation-for="NewReply.Message" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 col-lg-2 d-grid">
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Reply</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                }
-            }
-            else
-            {
-                <p class="text-muted">No comments yet.</p>
+                </div>
             }
         </div>
     </div>

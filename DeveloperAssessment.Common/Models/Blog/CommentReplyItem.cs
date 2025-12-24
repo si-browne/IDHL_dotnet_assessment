@@ -3,22 +3,18 @@ using System.Text.Json.Serialization;
 
 namespace DeveloperAssessment.Common.Models.Blog
 {
-    public class CommentItem : ItemBase
+    public class CommentReplyItem : ItemBase
     {
-
         [JsonPropertyName("name")]
         public string Name { get; set; } = "";
-
-        [JsonPropertyName("date")]
-        public DateTime Date { get; set; }
 
         [JsonPropertyName("emailAddress")]
         public string EmailAddress { get; set; } = "";
 
+        [JsonPropertyName("date")]
+        public DateTime Date { get; set; }
+
         [JsonPropertyName("message")]
         public string Message { get; set; } = "";
-
-        [JsonPropertyName("replies")]
-        public List<CommentReplyItem> Replies { get; set; } = new();
     }
 }

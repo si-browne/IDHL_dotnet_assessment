@@ -2,9 +2,8 @@
 
 namespace DeveloperAssessment.Common.Models.Blog
 {
-    public class CommentInputModel
+    public class ReplyInputModel
     {
-        // Exercise 3 - required fields
         [Required, StringLength(80)]
         public string Name { get; set; } = "";
 

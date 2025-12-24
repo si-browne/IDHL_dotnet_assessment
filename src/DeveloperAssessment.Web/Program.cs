@@ -32,7 +32,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
 
-// the blog routes
+// the blog routes (exercise 1,2 and 3)
 app.MapControllerRoute(
     name: "blog-post",
     pattern: "blog/{id:int}",
@@ -42,6 +42,12 @@ app.MapControllerRoute(
     name: "blog-index",
     pattern: "blog",
     defaults: new { controller = "Blog", action = "Index" });
+
+// exercise 4
+app.MapControllerRoute(
+    name: "blog-reply",
+    pattern: "blog/{id:int}/comments/{commentId:int}/reply",
+    defaults: new { controller = "Blog", action = "Reply" });
 
 // Default route
 app.MapControllerRoute(

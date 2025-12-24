@@ -54,7 +54,8 @@ namespace DeveloperAssessment.Services.Services
             var doc = await _repository.GetAsync();
             var post = doc.BlogPosts.FirstOrDefault(p => p.Id == postId);
 
-            if (post is null) {
+            if (post is null) 
+            {
                 throw new InvalidOperationException($"Blog post {postId} not found.");
             }
                 
@@ -73,7 +74,8 @@ namespace DeveloperAssessment.Services.Services
         private async Task<BlogPostDocument> GetDocumentCachedAsync()
         {
             // (OCP) - caching behaviour can be changed/extended by swapping cache strategy (IMemoryCache) without changing calling code (public methods still call PRIVATE GetDocumentCachedAsync()).
-            if (_cache.TryGetValue(CacheKey, out BlogPostDocument? cached) && cached is not null) {
+            if (_cache.TryGetValue(CacheKey, out BlogPostDocument? cached) && cached is not null) 
+            {
                 return cached;
             }
 
@@ -85,6 +87,31 @@ namespace DeveloperAssessment.Services.Services
             });
 
             return doc;
+        }
+
+        public async Task AddReplyAsync(int postId, int commentId, CommentReplyItem reply)
+        {
+            var doc = await _repository.GetAsync();
+            var post = doc.BlogPosts.FirstOrDefault(p => p.Id == postId);
+
+            if (post is null)
+            {
+                throw new InvalidOperationException($"Blog post {postId} not found.");
+            }
+
+            var comment = post.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            if (comment is null) 
+            {
+                throw new InvalidOperationException($"Comment {commentId} not found.");
+            }
+
+            var nextReplyId = comment.Replies.Count == 0 ? 1 : comment.Replies.Max(r => r.Id) + 1;
+            reply.Id = nextReplyId;
+            comment.Replies.Add(reply);
+
+            await _repository.SaveAsync(doc);
+            _cache.Remove(CacheKey);
         }
     }
 }

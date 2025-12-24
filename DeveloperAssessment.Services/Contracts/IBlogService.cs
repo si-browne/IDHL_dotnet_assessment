@@ -9,5 +9,6 @@ namespace DeveloperAssessment.Services.Contracts
         Task<IReadOnlyList<BlogPostItem>> GetPostsAsync();
         Task<BlogPostItem?> GetPostByIdAsync(int id);
         Task AddCommentAsync(int postId, CommentItem comment);
+        Task AddReplyAsync(int postId, int commentId, CommentReplyItem reply);
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DeveloperAssessment.Common.Models.Blog
+namespace DeveloperAssessment.Common.Requests.Blog
 {
-    public class CommentInputModel
+    public class AddReplyRequest
     {
-        // Exercise 3 - required fields
         [Required, StringLength(80)]
         public string Name { get; set; } = "";
 
