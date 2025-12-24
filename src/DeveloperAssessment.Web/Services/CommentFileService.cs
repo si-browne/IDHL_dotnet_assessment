@@ -8,10 +8,11 @@ namespace DeveloperAssessment.Services.Services
     public class CommentFileService : ICommentFileService
     {
         private const long MaxBytes = 5 * 1024 * 1024; // 5MB limitation - pretty normal
-        private static readonly HashSet<string> AllowedExtensions = new(StringComparer.OrdinalIgnoreCase)
-        {
-            ".png", ".jpg"
-        };
+        private static readonly HashSet<string> AllowedExtensions =
+        [
+            ".png",
+            ".jpg"
+        ];
 
         private readonly IWebHostEnvironment _env;
 
@@ -32,7 +33,7 @@ namespace DeveloperAssessment.Services.Services
                 throw new InvalidOperationException("File too large (max 5MB).");
             }
 
-            var ext = Path.GetExtension(file.FileName);
+            var ext = Path.GetExtension(file.FileName)?.ToLowerInvariant();
 
             if (string.IsNullOrWhiteSpace(ext) || !AllowedExtensions.Contains(ext)) 
             {

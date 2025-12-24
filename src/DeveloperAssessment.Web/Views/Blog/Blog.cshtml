@@ -33,7 +33,7 @@
 
             <hr />
 
-            <!-- Comment form - Exercise 3-->
+            <!-- Comment form - Exercise 3 & 5 -->
             <div class="card my-4">
                 <h5 class="card-header">Leave a Comment:</h5>
                 <div class="card-body">
@@ -63,6 +63,7 @@
                             <span asp-validation-for="NewComment.Message" class="text-danger"></span>
                         </div>
 
+                        @* File Uploader, Exercise 5 *@
                         <div class="form-group col-12 col-lg-12">
                             <label asp-for="NewComment.Files" class="form-label">Attachments (optional)</label>
                             <input asp-for="NewComment.Files" type="file" class="form-control form-control-sm" multiple />
@@ -75,7 +76,7 @@
                 </div>
             </div>
 
-            <!-- Comments - Exercise 2 & 4 -->
+            <!-- Comments - Exercise 2, 4 and 5 -->
             @foreach (var c in Model.Post.Comments.OrderByDescending(x => x.Date))
             {
                 <div class="media mb-4">
